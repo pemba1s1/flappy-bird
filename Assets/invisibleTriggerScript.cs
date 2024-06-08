@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class invisibleTriggerScript : MonoBehaviour
 {
-    public logicScript logicScript;
+    private logicScript logicScript;
+    private audioManager audioManager;
     // Start is called before the first frame update
     void Start()
     {
         logicScript = GameObject.FindGameObjectWithTag("Logic").GetComponent<logicScript>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<audioManager>();
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -17,6 +19,7 @@ public class invisibleTriggerScript : MonoBehaviour
         if (collision.gameObject.layer == 3)
         {
             logicScript.updatePlayerScore(1);
+            audioManager.PlaySFX(audioManager.score);
         }
     }
 }

@@ -9,26 +9,33 @@ public class BirdScript : MonoBehaviour
     public Rigidbody2D rigidBody2d;
     public int upForce;
     private logicScript logicScript;
+    private audioManager audioManager;
     void Start()
     {
         logicScript = GameObject.FindGameObjectWithTag("Logic").GetComponent<logicScript>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<audioManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !logicScript.isGameOver)
+        if (logicScript.isGameOver) return;
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             rigidBody2d.velocity = Vector2.up * upForce;
+            audioManager.PlaySFX(audioManager.flap);
         }
         if (rigidBody2d.transform.position.y >= 17 || rigidBody2d.transform.position.y <= -14)
         {
             logicScript.endGame();
+            audioManager.PlaySFX(audioManager.gameOver);
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (logicScript.isGameOver) return;
+        StartCoroutine(audioManager.PlaySequentially(audioManager.hit, audioManager.gameOver));
         logicScript.endGame();
     }
 }
