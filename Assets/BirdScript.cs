@@ -20,6 +20,18 @@ public class BirdScript : MonoBehaviour
     void Update()
     {
         if (logicScript.isGameOver) return;
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (logicScript.isPaused)
+            {
+                logicScript.resumeGame();
+            }
+            else
+            {
+                logicScript.pauseGame();
+            }
+        }
+        if (logicScript.isPaused) return;
         if (Input.GetKeyDown(KeyCode.Space))
         {
             rigidBody2d.velocity = Vector2.up * upForce;
