@@ -21,6 +21,10 @@ public class BirdScript : MonoBehaviour
         {
             rigidBody2d.velocity = Vector2.up * upForce;
         }
+        if (rigidBody2d.transform.position.y >= 17 || rigidBody2d.transform.position.y <= -14)
+        {
+            logicScript.endGame();
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
