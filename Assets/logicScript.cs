@@ -14,6 +14,7 @@ public class logicScript : MonoBehaviour
 
     [ContextMenu("updatePlayerScore")]
     public void updatePlayerScore(int increaseBy) { 
+        if (isGameOver) return;
         playerScore += increaseBy;
         scoreText.text = playerScore.ToString();
     }
